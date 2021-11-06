@@ -22,7 +22,7 @@ namespace EmployeeManagement
         /// </summary>
         public string Name
         {
-            get { return null; }
+            get { return name; }
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace EmployeeManagement
         /// </summary>
         public List<Employee> LstEmployees
         {
-            get { return null; }
-            set { lstEmployees = null; }
+            get { return lstEmployees; }
+            set { lstEmployees = value; }
         }
         #endregion accessors and mutators
 
@@ -42,7 +42,7 @@ namespace EmployeeManagement
         /// <param name="name">name of the company</param>
         public Company(string name)
         {
-           //TO DO
+            this.name = name;
         }
         #endregion constructors
 
@@ -53,8 +53,7 @@ namespace EmployeeManagement
         /// <returns></returns>
         public int GetNbEmployees()
         {
-            //TO DO
-            return -1;
+            return lstEmployees.Count;
         }
 
         /// <summary>
@@ -65,8 +64,14 @@ namespace EmployeeManagement
         /// <param name="emp">employee to add to the list</param>
         public void AddEmployee(Employee emp)
         {
-            //TO DO
-            throw new NotImplementedException();
+            if (lstEmployees == null)
+            {
+                lstEmployees = new List<Employee>();
+            }
+            if(emp != null)
+            {
+                lstEmployees.Add(emp);
+            }
         }
         #endregion public methods
     }

@@ -25,7 +25,10 @@ namespace EmployeeManagement
         /// </summary>
         public string Name
         {
-            get { return null; }
+            get 
+            {
+                return name; 
+            }
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace EmployeeManagement
         /// </summary>
         public string FirstName
         {
-            get { return null; }
+            get { return firstname; }
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace EmployeeManagement
         /// </summary>
         public int Level
         {
-            get { return -1; }
+            get { return level; }
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace EmployeeManagement
         /// </summary>
         public DateTime HireDate
         {
-            get { return DateTime.Now; }
+            get { return hireDate; }
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace EmployeeManagement
         /// </summary>
         public double Salary
         {
-            get { return -1; }
+            get { return salary; }
         }
         #endregion accessors and mutators
 
@@ -72,7 +75,11 @@ namespace EmployeeManagement
         /// <param name="salary">contains the salary that will initialize the employee's salary</param>
         public Employee(string name, string firstname, int level, DateTime hireDate, double salary)
         {
-            //TO DO
+            this.name = name;
+            this.firstname = firstname;
+            this.level = level;
+            this.hireDate = hireDate;
+            this.salary = salary;
         }
         #endregion constructors
 
@@ -85,8 +92,19 @@ namespace EmployeeManagement
         /// <returns>le number of years completly done since the employee's hiring</returns>
         public int CalculateSeniority()
         {
-            //TO DO
-            return -1;
+            DateTime today = DateTime.Now;
+            TimeSpan seniority = today.Subtract(hireDate);
+
+            //convert days to years
+            int seniorityInYears = seniority.Days / 365;
+
+            // handle when years of seniority + hire date's year is bigger than the current date
+            if((seniorityInYears + hireDate.Year) > today.Year)
+            {
+                seniorityInYears--;
+            }
+
+            return seniorityInYears;
         }
 
         /// <summary>
@@ -98,8 +116,18 @@ namespace EmployeeManagement
         /// <param name="newLevel">new level for the new year</param>
         public void SalaryIncreasing(int prevLevel, int newLevel)
         {
-            //TO DO
-            throw new NotImplementedException();
+            int increase = newLevel - prevLevel;
+            switch (increase)
+            {
+                case 0:
+                    salary += salary * 0.025;
+                    break;
+                case 1:
+                    salary += salary * 0.1;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -109,8 +137,13 @@ namespace EmployeeManagement
         /// </summary>
         public void Promotion()
         {
-            //TO DO
-            throw new NotImplementedException();
+            int seniority = CalculateSeniority();
+            int levelToAdd = seniority / 5;
+
+            if(seniority > 1)
+            {
+                level += levelToAdd;
+            }
         }
         #endregion public methods
 
